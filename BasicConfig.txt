@@ -1,0 +1,43 @@
+# This file provides the syntax and semantics of the configuration files 
+# for the pipeline simulator
+
+# There are 5 configuration parameters. They are:
+#     - numStages: The number of stages in the pipeline
+#     - numWorkItems: The total number of "items" to be processed by the 
+#           pipeline
+#     - baseDelay: The time delay to "process" each "item" in milliseconds.
+#     - imbalanceFactor: The modifier to the delay for each pipeline, also in
+#           in milliseconds.
+#     - maxPipelineCapacity: The maximum number of "items" in the pipeline.
+
+# The parser for the config file allows comments. Comments are signified by 
+# the first character in the line being a "#", followed immediately by a space.
+
+# The configuration parser supports you providing all the configuration 
+# parameters out of order and has defaults for each configuration parameter
+# should you decide to omit a configuration parameter.
+
+# The defaults for each parameter are as follows:
+#   - numStages = 4
+#   - numWorkItems = 1000000
+#   - baseDelay = 20
+#   - maxPipelineCapacity = 100
+#   - imbalanceFactor = 0 0 0 0
+
+# The parser will also ignore empty lines, but the parser will throw an error
+# if you do not provide the parameter with correct captialization. I.e.:
+# NumStages, numstages, nUmStAgEs are all incorrect and will cause an error.
+
+# Do not worry, the parser throws sane errors, and will fail on the first error
+# encountered. 
+
+# In order to specify any configuration, just provide the name of the 
+# configuration parameter, followed by a space, followed by an integer value
+# for the configuration parameter value. For the imbalanceFactor specification,
+# you need to space separate each value. Here is an example of a valid config:
+
+numStages 3
+numWorkItems 20000
+baseDelay 15
+maxPipelineCapacity 66
+imbalanceFactor 2 -4 0
