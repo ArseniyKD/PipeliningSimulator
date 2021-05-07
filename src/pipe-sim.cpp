@@ -3,6 +3,7 @@
 #include <queue>
 #include <unordered_map>
 #include "config.h"
+#include <cstdlib>
 
 void dumpConfiguration( Config & config ) {
     std::cout << "numStages: " << config.numStages() << std::endl;
@@ -15,6 +16,7 @@ void dumpConfiguration( Config & config ) {
     std::cout << "maxPipelineCapacity: " << config.maxPipelineCapacity() 
         << std::endl;
     std::cout << "baseDelay: " << config.baseDelay() << std::endl;
+    std::cout << "skipNoPipeline: " << config.skipNoPipeline() << std::endl;
 }
 
 int main( int argc, char** argv ) {
@@ -25,5 +27,9 @@ int main( int argc, char** argv ) {
     }
     Config config( argv[ 1 ] );
     config.parseConfigFile();
-    dumpConfiguration( config );
+    bool debug = std::getenv( "DEBUG" );
+    if ( debug ) {
+        dumpConfiguration( config );
+    }
+
 }

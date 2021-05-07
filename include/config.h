@@ -14,6 +14,7 @@ class Config {
     int baseDelay_ = 20;
     std::string configFileName_;
     int visitedBitMap = 0;
+    bool skipNoPipeline_ = false;
     void visit( std::istringstream & iss, int lineNum );
     void visitNumStages( std::istringstream & iss, int lineNum );
     void visitNumWorkItems( std::istringstream & iss, int lineNum );
@@ -29,6 +30,7 @@ class Config {
     int maxPipelineCapacity();
     int baseDelay();
     std::vector< int > imbalanceFactor();
+    bool skipNoPipeline();
 };
 
 #endif

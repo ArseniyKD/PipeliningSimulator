@@ -1,2 +1,14 @@
-all:
-	g++ config.cpp pipe-sim.cpp -o tst --std=c++17 -O2
+CC=g++
+INCLUDE_DIR=include
+SRC_DIR=src
+BIN_DIR=bin
+
+LIBS=-lpthread
+FLAGS=--std=c++14 -O2 -I$(INCLUDE_DIR)
+
+
+
+
+all: src/config.cpp src/pipe-sim.cpp 
+	mkdir -p ./bin/
+	$(CC) $(SRC_DIR)/config.cpp $(SRC_DIR)/pipe-sim.cpp -o $(BIN_DIR)/pipe-sim $(FLAGS)

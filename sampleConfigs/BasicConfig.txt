@@ -1,7 +1,7 @@
 # This file provides the syntax and semantics of the configuration files 
 # for the pipeline simulator
 
-# There are 5 configuration parameters. They are:
+# There are 6 configuration parameters. They are:
 #     - numStages: The number of stages in the pipeline
 #     - numWorkItems: The total number of "items" to be processed by the 
 #           pipeline
@@ -9,6 +9,7 @@
 #     - imbalanceFactor: The modifier to the delay for each pipeline, also in
 #           in milliseconds.
 #     - maxPipelineCapacity: The maximum number of "items" in the pipeline.
+#     - skipNoPipeline: The non pipelined example should not be run.
 
 # The parser for the config file allows comments. Comments are signified by 
 # the first character in the line being a "#", followed immediately by a space.
@@ -23,6 +24,7 @@
 #   - baseDelay = 20
 #   - maxPipelineCapacity = 100
 #   - imbalanceFactor = 0 0 0 0
+# And the skipNoPipeline flag is not set.
 
 # The parser will also ignore empty lines, but the parser will throw an error
 # if you do not provide the parameter with correct captialization. I.e.:
@@ -41,3 +43,7 @@ numWorkItems 20000
 baseDelay 15
 maxPipelineCapacity 66
 imbalanceFactor 2 -4 0
+
+
+# If you want to skip the run without pipelining, then you can do so by simply
+# adding the parameter "skipNoPipeline" to the config file.

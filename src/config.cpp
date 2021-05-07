@@ -33,6 +33,10 @@ std::vector< int > Config::imbalanceFactor() {
     return this->imbalanceFactor_;
 }
 
+bool Config::skipNoPipeline() {
+    return this->skipNoPipeline_;
+}
+
 void Config::parseConfigFile() {
     std::ifstream infile( this->configFileName_ );
 
@@ -40,7 +44,7 @@ void Config::parseConfigFile() {
         std::cout << "File " << rbus << this->configFileName_ << rbue 
             << " could not be opened. Please check that this file exists." 
             << std::endl;
-        abort();
+        exit( 1 );
     }
 
     std::string line;
@@ -74,12 +78,14 @@ void Config::visit( std::istringstream & iss, int lineNum ) {
         visitBaseDelay( iss, lineNum );
     } else if ( leadingString == "imbalanceFactor" ) {
         visitImbalanceFactor( iss, lineNum );
+    } else if ( leadingString == "skipNoPipeline" ) {
+        this->skipNoPipeline_ = true;
     } else { 
         std::cout << rbus << "Error:" << rbue << " Unrecognized configuration "
            << "option: " << rbus << leadingString << rbue << " at line: " 
            << lineNum << std::endl;
         std::cout << "Exiting program" << std::endl;
-        abort();
+        exit( 1 );
     }
 }
 
@@ -91,12 +97,12 @@ static int toInt( std::string value, int index ) {
         std::cout << rbus << "Error:" << rbue << " Encountered a non-integer "
             << "value " << rbus << value << rbue << " as token number " 
             << index << std::endl;
-        abort(); 
+        exit( 1 ); 
     } catch ( const std::out_of_range &e ) {
         std::cout << rbus << "Error:" << rbue << " Encountered a value that "
             << " does not fit inside an integer: " << rbus << value << rbue 
             << " as token number " << index << std::endl;
-        abort();
+        exit( 1 );
     }
     return retVal;
 }
@@ -106,14 +112,14 @@ void Config::visitNumStages( std::istringstream & iss, int lineNum ) {
     if ( visitedBitMap & 0b1 ) {
         std::cout << rbus << "Error:" << rbue << " Specifying the numStages "
             << "configuration for the second time." << std::endl;
-        abort();
+        exit( 1 );
     }
 
     std::string value; 
     if ( !( iss >> value ) ) {
         std::cout << rbus << "Error:" << rbue << " Nothing following the "
             << "numStages configuration keyword" << std::endl;
-        abort();
+        exit( 1 );
     }
 
     this->numStages_ = toInt( value, 1 );
@@ -124,14 +130,14 @@ void Config::visitNumWorkItems( std::istringstream & iss, int lineNum ) {
     if ( visitedBitMap & 0b10 ) {
         std::cout << rbus << "Error:" << rbue << " Specifying numWorkItems " 
             << "configuration for the second time." << std::endl;
-        abort();
+        exit( 1 );
     }
 
     std::string value;
     if ( !( iss >> value ) ) {
         std::cout << rbus << "Error:" << rbue << " Nothing following the "
             << "numWorkItems configuration keyword" << std::endl;
-        abort();
+        exit( 1 );
     }
 
     this->numWorkItems_ = toInt( value, 1 );
@@ -143,13 +149,13 @@ void Config::visitMaxPipelineCapacity( std::istringstream & iss, int lineNum ) {
         std::cout << rbus << "Error:" << rbue << " Specifying "
             << "maxPipelineCapacity configuration for the second time." 
             << std::endl;
-        abort();
+        exit( 1 );
     }
     std::string value;
     if ( !( iss >> value ) ) {
         std::cout << rbus << "Error:" << rbue << " Nothing following the "
             << "maxPipelineCapacity configuration keyword" << std::endl;
-        abort();
+        exit( 1 );
     }
 
     this->maxPipelineCapacity_ = toInt( value, 1 );
@@ -160,14 +166,14 @@ void Config::visitBaseDelay( std::istringstream & iss, int lineNum ) {
     if ( visitedBitMap & 0b1000 ) {
         std::cout << rbus << "Error:" << rbue << " Specifying baseDelay "
             << "configuration for the second time." << std::endl;
-        abort();
+        exit( 1 );
     }
 
     std::string value; 
     if ( !( iss >> value ) ) {
         std::cout << rbus << "Error:" << rbue << " Nothing following the "
             << "baseDelay configuration keyword" << std::endl;
-        abort();
+        exit( 1 );
     }
 
     this->baseDelay_ = toInt( value, 1 );
@@ -179,7 +185,7 @@ void Config::visitImbalanceFactor( std::istringstream & iss, int lineNum ) {
     if ( visitedBitMap & 0b10000 ) {
         std::cout << rbus << "Error:" << rbue << " Specifying imbalanceFactor "
             << "configuration for the second time." << std::endl;
-        abort();
+        exit( 1 );
     }
 
     std::string value;
@@ -197,7 +203,7 @@ void Config::verifySemantics() {
         std::cout << rbus << "Error:" << rbue << " Fewer than 1 stage provided"
             << ", please provide a different number of stages than " 
             << numStages() << std::endl;
-        abort();
+        exit( 1 );
     }
 
     // Zero out the imbalance factors if they were not specified. 
@@ -213,7 +219,7 @@ void Config::verifySemantics() {
         std::cout << rbus << "Error:" << rbue << " Number of imbalance factor "
             << "entries (" << imbalanceFactor().size() << ") is not the same as"
             << " the number of stages (" << numStages() << ")" << std::endl;
-        abort();
+        exit( 1 );
     }
 
     // Verify that no negative time waiting can occur. 
@@ -224,7 +230,7 @@ void Config::verifySemantics() {
                     << i << " is below 0. Either increase base delay, or "
                     << "decrease the imbalance factor for that stage."
                     << std::endl;
-                abort();
+                exit( 1 );
             }
         }
     } 
