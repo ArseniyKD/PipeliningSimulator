@@ -5,9 +5,9 @@
 #     - numStages: The number of stages in the pipeline
 #     - numWorkItems: The total number of "items" to be processed by the 
 #           pipeline
-#     - baseDelay: The time delay to "process" each "item" in milliseconds.
+#     - baseDelay: The time delay to "process" each "item" in microseconds.
 #     - imbalanceFactor: The modifier to the delay for each pipeline, also in
-#           in milliseconds.
+#           in microseconds.
 #     - maxPipelineCapacity: The maximum number of "items" in the pipeline.
 #     - skipNoPipeline: The non pipelined example should not be run.
 
@@ -20,7 +20,7 @@
 
 # The defaults for each parameter are as follows:
 #   - numStages = 4
-#   - numWorkItems = 1000000
+#   - numWorkItems = 10000
 #   - baseDelay = 20
 #   - maxPipelineCapacity = 100
 #   - imbalanceFactor = 0 0 0 0

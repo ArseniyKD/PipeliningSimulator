@@ -8,7 +8,7 @@
 class Config {
   private:
     int numStages_ = 4;
-    int numWorkItems_ = 1000000;
+    int numWorkItems_ = 10000;
     std::vector< int > imbalanceFactor_ = std::vector< int >();
     int maxPipelineCapacity_ = 100;
     int baseDelay_ = 20;

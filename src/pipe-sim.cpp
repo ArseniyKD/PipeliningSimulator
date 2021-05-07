@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "config.h"
 #include <cstdlib>
+#include "simulator.h"
 
 void dumpConfiguration( Config & config ) {
     std::cout << "numStages: " << config.numStages() << std::endl;
@@ -31,5 +32,6 @@ int main( int argc, char** argv ) {
     if ( debug ) {
         dumpConfiguration( config );
     }
-
+    Simulator simulator( &config );
+    simulator.simulatorMain();
 }

@@ -234,4 +234,19 @@ void Config::verifySemantics() {
             }
         }
     } 
+
+    if ( numWorkItems() < 1 ) {
+        std::cout << rbus << "Error:" << rbue << " Fewer than 1 work item is "
+            << "provided. Please, provide 1 or more work items." << std::endl;
+        exit( 1 );
+    }
+    
+    if ( maxPipelineCapacity() < numStages() ) {
+        std::cout << rbus << "Error:" << rbue << " The capacity of the pipeline"
+            << " was set to ( " << maxPipelineCapacity() << " ), which is less "
+            << "than the number of stages ( " << numStages() << " ). This is "
+            << "currently unsupported. Please either decrease numStages, or "
+            << "increase the maxPipelineCapacity." << std::endl;
+        exit( 1 );
+    }
 }

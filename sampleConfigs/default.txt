@@ -1,5 +1,5 @@
 numStages 4
-numWorkItems 1000000
+numWorkItems 10000
 baseDelay 20
 maxPipelineCapacity 100
 imbalanceFactor 0 0 0 0
