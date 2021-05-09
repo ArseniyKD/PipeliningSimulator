@@ -11,6 +11,9 @@
 class Simulator {
   public:
     Config * config;
+    int const controlThread = 0;
+    int const microSecondMultiplier = 1000;
+    int const falseSharingPreventionBuffer = 10;
 
     std::chrono::duration< double, std::milli > durationPipelined;
     std::chrono::duration< double, std::milli > durationNonPipelined;
@@ -30,6 +33,11 @@ class Simulator {
     void noPipelinerSimulation();
     void simulatorMain();
     void dumpDebugInfo( int state );
+    void simulateStage( int tid );
+    void controlPipeline();
+    void resetControlSignals();
+    void setUpTimeSpecs();
+    void noPipelinerDriver( bool shortCircuit );
 
     Simulator( Config * config );
 };

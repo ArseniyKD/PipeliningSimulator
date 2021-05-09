@@ -241,6 +241,8 @@ void Config::verifySemantics() {
         exit( 1 );
     }
     
+    // Verify that no bubbles need to be inserted, as that is not something that
+    // I want to actually deal with. 
     if ( maxPipelineCapacity() < numStages() ) {
         std::cout << rbus << "Error:" << rbue << " The capacity of the pipeline"
             << " was set to ( " << maxPipelineCapacity() << " ), which is less "
