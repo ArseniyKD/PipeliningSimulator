@@ -4,7 +4,7 @@ SRC_DIR=src
 BIN_DIR=bin
 
 LIBS=-lpthread
-FLAGS=--std=c++14 -O2 -I$(INCLUDE_DIR)
+FLAGS=--std=c++14 -O2 $(LIBS) -I$(INCLUDE_DIR)
 
 
 

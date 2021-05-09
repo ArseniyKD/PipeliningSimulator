@@ -10,23 +10,26 @@
 
 class Simulator {
   public:
-    int const controlThread = 0;
-    int const microSecondMultiplier = 1000;
-
     Config * config;
 
     std::chrono::duration< double, std::milli > durationPipelined;
     std::chrono::duration< double, std::milli > durationNonPipelined;
+    bool debug = false;
 
     std::queue< int > workItems = std::queue< int >();
-    std::vector< int > intermediateValues;
+    std::vector< int > stageInputs;
+    std::vector< int > stageOutputs;
     std::vector< pthread_t > TID;
     std::vector< struct timespec > timespecs;
     std::vector< int > controlSignals;
+    pthread_barrier_t barrier;
+    bool leaveEventLoop = false;
+
     
     void setUpWorkQueueForConfig( bool pipe );
     void noPipelinerSimulation();
     void simulatorMain();
+    void dumpDebugInfo( int state );
 
     Simulator( Config * config );
 };

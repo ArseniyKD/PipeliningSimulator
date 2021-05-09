@@ -33,5 +33,6 @@ int main( int argc, char** argv ) {
         dumpConfiguration( config );
     }
     Simulator simulator( &config );
+    simulator.debug = debug;
     simulator.simulatorMain();
 }

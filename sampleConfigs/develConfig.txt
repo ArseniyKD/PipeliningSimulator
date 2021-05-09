@@ -1,0 +1,3 @@
+numStages 2
+numWorkItems 11
+maxPipelineCapacity 5
