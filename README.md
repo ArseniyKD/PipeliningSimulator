@@ -40,16 +40,27 @@ The config file is a simple text file with the following format:
 
 ```
 # Specifying the number of stages for the simulation
+
 numStages <integer number>
+
 # Specifying the base sleep time in micro seconds per work item
+
 baseDelay <integer number>
+
 # Specifying the total number of work items to process by the system
+
 numWorkItems <integer number>
+
 # Specifying the maximum capacity of the pipeline
+
 maxPipelineCapacity <integer number>
-# Specifying per stage pipeline imbalance
+
+# Specifying per stage pipeline imbalance (number of stages and the length of the list must be the same)
+
 imbalanceFactor <space separated list of integers>
+
 # Specifying that you do not want to execute the non-pipelined run
+
 skipNoPipeline
 ```
 
