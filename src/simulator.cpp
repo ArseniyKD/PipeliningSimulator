@@ -169,6 +169,8 @@ void Simulator::simulatorMain() {
     // pipelined implementaion. 
     if ( config->numStages() == 1 ) {
         noPipelinerDriver( true );
+        std::cout << "Providing speedup data is not supported for a single"
+            << " stage pipeline" << std::endl;
         return;
     }
 
@@ -212,6 +214,17 @@ void Simulator::simulatorMain() {
     std::cout << "\tThroughput: " 
         << config->numWorkItems() / ( durationPipelined.count() / 1000 )
         << " work items per second" << std::endl;
+
+    if ( config->skipNoPipeline() ) {
+        std::cout << "Cannot provide speedup information because the run "
+            << "without pipelining was skipped" << std::endl;
+    } else {
+        double speedupRatio = durationNonPipelined.count()
+            / durationPipelined.count();
+        std::cout << "The pipelined implementation ran " << speedupRatio 
+            << " times faster than the non pipelined implementation." 
+            << std::endl;
+    }
 }
 
 void Simulator::dumpDebugInfo( int state ) {

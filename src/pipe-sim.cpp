@@ -21,12 +21,14 @@ void dumpConfiguration( Config & config ) {
 }
 
 int main( int argc, char** argv ) {
-    if ( argc < 2 ) {
-        std::cout << "Missing required argument.\n"
-            << "Required arguments: <config file path>\n";
+    if ( argc > 2 ) {
+        std::cout << "More than one argument provided, only one or less " 
+            << "supported.\nCommand usage:\n\tbin/pipe-sim [optional/path/to"
+            << "/configuration/file]" << std::endl;
         return 1;
     }
-    Config config( argv[ 1 ] );
+    char defaultFile[] = "/dev/null";
+    Config config( ( argc < 2 ) ? defaultFile : argv[ 1 ] );
     config.parseConfigFile();
     bool debug = std::getenv( "DEBUG" );
     if ( debug ) {
