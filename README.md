@@ -1,7 +1,7 @@
 # PipeliningSimulator
 ## _A generic pipelining epxloration tool written in C++_
 
-PipeliningSimulator is a highly configurable, yet simple to use simulator intended to introduce people to the concept of pipelining. The simulator is written in pure C++ with pthreads, so you can explore the code and learn a lot about how you could implement a project like this yourself with minimal knowledge of C++! This project was made as supplementary material for my YouTube video on the topic of pipelining. 
+PipeliningSimulator is a highly configurable, yet simple to use simulator intended to introduce people to the concept of pipelining. The simulator is written in pure C++ with pthreads, so you can explore the code and learn a lot about how you could implement a project like this yourself with minimal knowledge of C++! This project was made as supplementary material for my [YouTube video on the topic of pipelining](https://youtu.be/yYtNTJoYj0A). 
 
 This README is split into multiple sections beyond this introduction.
 
